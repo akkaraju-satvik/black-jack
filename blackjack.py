@@ -6,7 +6,7 @@ suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
 values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 
             'Nine':9, 'Ten':10, 'Jack':10, 'Queen':10, 'King':10, 'Ace':11}
-
+total = 100
 playing = True
 
 # CLASS DEFINTIONS:
@@ -65,28 +65,31 @@ class Hand:
 class Chips:
     
     def __init__(self):
-        self.total = 100
+        global total
         self.bet = 0
         
     def win_bet(self):
-        self.total += self.bet
+        global total
+        total += self.bet
     
     def lose_bet(self):
-        self.total -= self.bet
+        global total
+        total -= self.bet
         
 
 # FUNCTION DEFINITIONS:
 
 def take_bet(chips):
-
+    global total
+    
     while True:
         try:
             chips.bet = int(input('How many chips would you like to bet? '))
         except ValueError:
             print('Sorry, a bet must be an integer!')
         else:
-            if chips.bet > chips.total:
-                print("Sorry, your bet can't exceed",chips.total)
+            if chips.bet > total:
+                print("Sorry, your bet can't exceed",total)
             else:
                 break
 
@@ -204,7 +207,7 @@ while True:
             push(player_hand,dealer_hand)
 
     # Inform Player of their chips total    
-    print("\nPlayer's winnings stand at",player_chips.total)
+    print("\nPlayer's winnings stand at",total)
     
     # Ask to play again
     new_game = input("Would you like to play another hand? Enter 'y' or 'n' ")
